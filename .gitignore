@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -35,7 +34,6 @@ dist
 
 # Mac files
 .DS_Store
-=======
 __pycache__/
 *.py[cod]
 
@@ -50,4 +48,3 @@ cover
 
 tmp/
 ./migrations/
->>>>>>> a6a808f0173e118bacda97fca10c87ed6991001a
