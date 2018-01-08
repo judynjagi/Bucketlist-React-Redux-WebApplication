@@ -96,4 +96,3 @@ To run the tests;
       			 $ python manage.py cov
 
 ```
-## `5. Testing`
