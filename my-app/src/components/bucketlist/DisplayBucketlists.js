@@ -23,14 +23,12 @@ redirect(){
 }
 
   render(){
-    // const {items} = this.props
     return(
       <div>
         <input type="submit" value="Add Bucketlist" className="btn btn-primary" onClick={this.redirect}/>
       <BucketList
         allBucketlists={this.props.bucketlists}
         onClick={this.onClick}/>
-      {/* {console.log(this.props.bucketlists)} */}
       </div>
     );
   }

@@ -27,15 +27,18 @@ class BucketListItems(Resource):
             args = parser.parse_args(strict=True)
             name, description = args['title'], args['description']
 
-            bucketlistitems = BucketlistItem(item_title=name, item_description=description,
-                                             bucketlist_id=item_id,
-                                             created_by=g.user.user_id,
-                                             done=False)
-            db.session.add(bucketlistitems)
-            db.session.commit()
-            items = marshal(bucketlistitems, bucketlist_item_serializer)
+            if not name and not description:
+                return {'message': 'Title or description cannot be blank'}, 400
+            else:
+                bucketlistitems = BucketlistItem(item_title=name, item_description=description,
+                                                 bucketlist_id=item_id,
+                                                 created_by=g.user.user_id,
+                                                 done=False)
+                db.session.add(bucketlistitems)
+                db.session.commit()
+                items = marshal(bucketlistitems, bucketlist_item_serializer)
 
-            return {'message': 'You have successfully created a bucketlist item', 'bucketlistitems': items}, 200
+                return {'message': 'You have successfully created a bucketlist item', 'bucketlistitems': items}, 200
         return {'message': 'That list was not found'}, 404
 
     def put(self, bucketlist_id, item_id):
@@ -54,29 +57,33 @@ class BucketListItems(Resource):
                                 required=True,
                                 help='Provide a bucketlist item'
                                 )
-            parser.add_argument('description', type=str)
+            parser.add_argument('description', type=str, required=True)
             parser.add_argument('done', type=str, required=True,
                                 help='This field takes a True of False value depending on whether you have accomplished it or not ')
 
             args = parser.parse_args(strict=True)
             done, name, description = args['done'], args['title'], args['description']
 
-            if name: bucketlistitem.item_title = name
+            if name == bucketlistitem.item_title and description == bucketlistitem.item_description:
+                return{'message': 'That Item already exists'}, 400
+            else:
 
-            if description: bucketlistitem.description = description
+                if name: bucketlistitem.item_title = name
 
-            if done == 'True' or done == 'true':
-                bucketlistitem.done = True
-            elif done == 'False' or done == 'false':
-                bucketlistitem.done = False
+                if description: bucketlistitem.description = description
 
-            bucketlistitem.bucketlist_id = bucketlist_id
-            bucketlistitem.item_id = item_id
+                if done == 'True' or done == 'true':
+                    bucketlistitem.done = True
+                elif done == 'False' or done == 'false':
+                    bucketlistitem.done = False
 
-            db.session.commit()
-            response = marshal(bucketlistitem, bucketlist_item_serializer)
+                bucketlistitem.bucketlist_id = bucketlist_id
+                bucketlistitem.item_id = item_id
 
-            return {"bucket_list": response, "message": "Successfully updated a bucketlistitem"}, 200
+                db.session.commit()
+                response = marshal(bucketlistitem, bucketlist_item_serializer)
+
+                return {"bucket_list": response, "message": "Successfully updated a bucketlistitem"}, 200
 
     def delete(self, bucketlist_id, item_id):
         """

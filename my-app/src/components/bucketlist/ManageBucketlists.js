@@ -63,7 +63,6 @@ onDelete(e){
   });
   }
 }
-// this.context.router.push('/allbucketlist')
 
 redirect(){
   if (this.state.saving == true) {

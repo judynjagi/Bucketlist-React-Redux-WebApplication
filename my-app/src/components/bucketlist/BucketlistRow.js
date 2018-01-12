@@ -36,7 +36,7 @@ const BucketlistRow = ({bucketlist,onClick}) =>{
         <div ><Link to={'/allitems/' + bucketlists.list_id}>View Bucketlist Items</Link></div>
         <div>
             <div className="col-lg-4"><Link to={'/bucketlist/' + bucketlists.list_id}>Edit</Link></div>
-            {/* <div className="col-lg-4 button"><input type="submit" value="Delete" className="btn" onClick={() => { onClick(bucketlists.list_id);}}/></div> */}
+            <div className="col-lg-4 button"><input type="submit" value="Delete" className="btn" onClick={() => { onClick(bucketlists.list_id);}}/></div>
             <div className="col-lg-4"><Link to={'/bucketlist/' + bucketlists.list_id + '/items/'}> Add item</Link></div>
         </div>
       </div>

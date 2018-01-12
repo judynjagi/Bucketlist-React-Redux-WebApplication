@@ -12,23 +12,7 @@ export default function courseReducer(state = initialState.register, action) {
       ...state,
       action.userLoginDetails
     ];
-    // case types.REGISTER_USER_FAILURE:
-    //   return[
-    //     ...state,
-    //     Object.assign({}, action.error)
-    //   ];
     default:
       return state;
   }
 }
-
-// export default function courseReducer(state = [], action) {
-//   switch (action.type) {
-//     case types.CREATE_COURSE:
-//       return [...state,
-//         Object.assign({}, action.course)
-//       ];
-//     default:
-//       return state;
-//   }
-// }

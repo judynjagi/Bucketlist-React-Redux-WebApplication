@@ -44,23 +44,6 @@ DisplayItems.propTypes = {
   params: PropTypes.object
 };
 
-// function getListId(bucketlist){
-//   let list = bucketlist.map(list => list.list_id );
-//   return list;
-// }
-//
-// function getAllItems(bucketlists,Id){
-//   let items;
-//   let item = bucketlists.filter(lists => lists.list_id == Id);
-//   if (item) {
-//     let bucketlists = item.map(bucketlist => bucketlist.items);
-//     for (let items of bucketlists) {
-//       return items;
-//     }
-//   }
-//   return [];
-// }
-
 function mapStateToProps(state, ownProps){
   return{
     bucketlist: state.bucketlist

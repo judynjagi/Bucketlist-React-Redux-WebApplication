@@ -19,7 +19,7 @@ const ItemRow = ({items}) => {
             </p>
             <p>
               <span className="headers">Done</span>
-            <span>{bucketlistitems.done}</span>
+            <span>{String(bucketlistitems.done)}</span>
             </p>
             <p>
               <span className="headers">Date Created</span>

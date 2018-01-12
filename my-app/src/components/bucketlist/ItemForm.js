@@ -2,28 +2,28 @@ import React, {PropTypes} from 'react';
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 
-const ItemForm = ({bucketlist, onSave, onDelete, onChange, saving, errors}) => {
+const ItemForm = ({bucketlistitem, onSave, onDelete, onChange, saving, errors}) => {
   return (
     <form>
       <h1>Edit Item</h1>
       <TextInput
         name="title"
         label="Title"
-        value={bucketlist.title}
+        value={bucketlistitem.title}
         onChange={onChange}
         error={errors.title}/>
 
       <TextInput
         name="description"
         label="Description"
-        value={bucketlist.description}
+        value={bucketlistitem.description}
         onChange={onChange}
         error={errors.description}/>
 
       <TextInput
         name="done"
         label="Done"
-        value={bucketlist.done}
+        value={bucketlistitem.done}
         onChange={onChange}
         error={errors.description}/>
 
@@ -38,12 +38,11 @@ const ItemForm = ({bucketlist, onSave, onDelete, onChange, saving, errors}) => {
 };
 
 ItemForm.propTypes = {
-  bucketlist: PropTypes.object.isRequired,
+  bucketlistitem: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   saving: PropTypes.bool,
-  done: PropTypes.bool,
   errors: PropTypes.object
 };
 

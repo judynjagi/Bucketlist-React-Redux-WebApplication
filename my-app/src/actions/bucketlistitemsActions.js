@@ -40,7 +40,6 @@ export function CreateBucketlistItems(id, items){
 export function DisplayBucketListitems(){
   return function(dispatch){
     return axios.get('http://127.0.0.1:5000/bucketlists/', config).then(bucketlists=>{
-      // console.log("hey", bucketlists.data.bucket_lists.map(items => items.items));
       dispatch(DisplayBucketlistsitemsSuccess(bucketlists.data.bucket_lists.items));
     }).catch(error =>{
       if (error.response) {
@@ -53,7 +52,7 @@ export function DisplayBucketListitems(){
 export function UpdateBucketlistItems(id, items, item_id){
   return function(dispatch){
     return axios.put('http://127.0.0.1:5000/bucketlists/' + id + '/items/' + item_id, items, config).then(bucketlist => {
-      dispatch(UpdateBucketlistitemSuccess(bucketlist.data.bucketlistitems.items));
+      dispatch(UpdateBucketlistitemSuccess(bucketlist.data.bucket_list));
     }).catch(error =>{
       if (error.response) {
         throw(error.response.data.message);

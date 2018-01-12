@@ -9,11 +9,6 @@ export function loginUserSuccess(userLoginDetails){
   return {type: types.LOGIN_USER_SUCCESS, userLoginDetails};
 }
 
-// export function registerUserFailure(error){
-//   return { type: types.REGISTER_USER_FAILURE, error};
-// }
-
-
 
 export function registerUser(registrationDetails){
   return function (dispatch, getState) {
@@ -22,7 +17,6 @@ export function registerUser(registrationDetails){
     }).catch(error =>{
       if (error.response) {
         throw(error.response.data.message);
-        // dispatch(registerUserFailure(error.response.data));
       }
     });
   };

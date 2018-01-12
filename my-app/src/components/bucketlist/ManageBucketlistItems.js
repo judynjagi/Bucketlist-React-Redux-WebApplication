@@ -4,6 +4,7 @@ import Form from './Form';
 import {connect} from 'react-redux';
 import * as bucketlistitemsactions from '../../actions/bucketlistitemsActions.js';
 import {bindActionCreators} from 'redux';
+import toastr from 'toastr';
 import {browserHistory} from 'react-router';
 
 class ManageBucketlistsItems extends React.Component{
@@ -18,7 +19,6 @@ class ManageBucketlistsItems extends React.Component{
     };
     this.saveBucketlistItems = this.saveBucketlistItems.bind(this);
     this.updateBucketlistItmes = this.updateBucketlistItmes.bind(this);
-    // this.editForm = this.editForm.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,13 +30,16 @@ class ManageBucketlistsItems extends React.Component{
   saveBucketlistItems(e){
     e.preventDefault();
     const itemState = this.state.bucketlistitems;
-    let picked = (({title, description})=>({title, description}))(itemState);
+    let picked = (({title, description, done})=>({title, description, done}))(itemState);
 
     if (itemState.id) {
-      // this.setState({title: 'Edit Item'});
-      this.props.actions.UpdateBucketlistItems(this.props.bucketlist_id, picked,itemState.id ).then(() => this.redirectOnSave());
+      this.props.actions.UpdateBucketlistItems(this.props.bucketlist_id, picked, itemState.id ).then(() => toastr.success("You have successfully edited a bucketlist item")).then(() => this.redirectOnSave()).catch(error => {
+        toastr.error(error);
+      });
     } else {
-      this.props.actions.CreateBucketlistItems(this.props.bucketlist_id, itemState).then(() => this.redirectOnSave());
+      this.props.actions.CreateBucketlistItems(this.props.bucketlist_id, itemState).then(() => toastr.success("You have successfully created a bucketlist item")).then(() => this.redirectOnSave()).catch(error => {
+        toastr.error(error);
+      });
     }
   }
 
@@ -57,7 +60,8 @@ class ManageBucketlistsItems extends React.Component{
     const itemId = this.state.bucketlistitems;
     let editForm;
     if (itemId.id) {
-      editForm = <ItemForm bucketlist={this.state.bucketlistitems} onSave={this.saveBucketlistItems} onChange={this.updateBucketlistItmes} saving={this.state.false} errors={this.state.errors} />;
+      editForm = <ItemForm bucketlistitem={this.state.bucketlistitems} onSave={this.saveBucketlistItems} onChange={this.updateBucketlistItmes} saving={this.state.false} errors={this.state.errors} />;
+
     } else {
       editForm = <Form bucketlist={this.state.bucketlistitems} onSave={this.saveBucketlistItems} onChange={this.updateBucketlistItmes} saving={this.state.false} errors={this.state.errors} title={this.state.title}/>;
     }
